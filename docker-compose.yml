@@ -1,0 +1,31 @@
+version: '3.9'
+
+networks:
+  proxy:
+    name: cwa_proxy_default
+    external: true
+
+services:
+  plantuml:
+    image: plantuml/plantuml-server
+    container_name: plantuml
+    restart: always
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.puml.tls=true
+      - traefik.http.routers.puml.rule=Host("${APPLICATION_FQDN}")
+      - traefik.http.routers.puml.service=puml-service
+      - traefik.http.services.puml-service.loadbalancer.server.port=8080
+    environment:
+      TZ: Europe/Berlin
+      # START Dual Setup with nginx proxy 
+      VIRTUAL_HOST: ${APPLICATION_FQDN}
+      VIRTUAL_PORT: 8080
+      LETSENCRYPT_HOST: ${APPLICATION_FQDN}
+      LETSENCRYPT_EMAIL: ${LETSENCRYPT_MAIL}
+      # END
+      USER: git
+    networks:
+      - proxy
+    ports:
+      - "8080:8080"
