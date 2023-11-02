@@ -2,7 +2,7 @@ version: '3.9'
 
 networks:
   proxy:
-    name: cwa_proxy_default
+    name: backbone_proxy
     external: true
 
 services:
@@ -27,5 +27,3 @@ services:
       USER: git
     networks:
       - proxy
-    ports:
-      - "8080:8080"
