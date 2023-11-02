@@ -27,5 +27,3 @@ services:
       USER: git
     networks:
       - proxy
-    ports:
-      - "8080:8080"
