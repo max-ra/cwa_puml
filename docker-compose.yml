@@ -7,12 +7,13 @@ networks:
 
 services:
   plantuml:
-    image: plantuml/plantuml-server
+    image: plantuml/plantuml-server:v1.2025.0
     container_name: plantuml
     restart: always
     labels:
       - traefik.enable=true
       - traefik.http.routers.puml.tls=true
+      - traefik.http.routers.puml.tls.certresolver=${CERTRESOLVER:-}
       - traefik.http.routers.puml.rule=Host("${APPLICATION_FQDN}")
       - traefik.http.routers.puml.service=puml-service
       - traefik.http.services.puml-service.loadbalancer.server.port=8080
