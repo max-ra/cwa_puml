@@ -1,5 +1,3 @@
-version: '3.9'
-
 networks:
   proxy:
     name: backbone_proxy
@@ -19,12 +17,5 @@ services:
       - traefik.http.services.puml-service.loadbalancer.server.port=8080
     environment:
       TZ: Europe/Berlin
-      # START Dual Setup with nginx proxy 
-      VIRTUAL_HOST: ${APPLICATION_FQDN}
-      VIRTUAL_PORT: 8080
-      LETSENCRYPT_HOST: ${APPLICATION_FQDN}
-      LETSENCRYPT_EMAIL: ${LETSENCRYPT_MAIL}
-      # END
-      USER: git
     networks:
       - proxy
