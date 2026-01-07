@@ -5,7 +5,7 @@ networks:
 
 services:
   plantuml:
-    image: plantuml/plantuml-server:v1.2025.8
+    image: plantuml/plantuml-server:v1.2025.10
     container_name: plantuml
     restart: always
     labels:
